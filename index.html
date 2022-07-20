@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>RiskCalculator</title>
+</head>
+<body text="Black" bgcolor="white" align="center"><h1>RiskCalculator</h1>
+	<form risk="/risk.php">
+  		<label for="fname">First name:</label>
+  		<input type="text" id="fname" name="fname"><br><br>
+  		<label for="lname">Last name:</label>
+  		<input type="text" id="lname" name="lname"><br><br>
+  		<label for="Age">Age:</label>
+  		<input type="number" id="Age" name="Age"><br><br>
+  		<label for="Height">Height:</label>
+  		<input type="number" id="Height" name="Height"> cm<br><br>
+  		<label for="Weight">Weight:</label>
+  		<input type="number" id="Weight" name="Weight"> kg
+
+  		<p>Please select your gender:</p>
+  		<div>
+    		<input type="radio" id="G1"
+     		name="gender" value="Male">
+    		<label for="G1">Male</label>
+
+    		<input type="radio" id="G2"
+     		name="gender" value="Female">
+    		<label for="G2">Female</label>
+  		</div>
+
+  		<p>Do you have a diabetes?</p>
+  		<div>
+    		<input type="radio" id="D1"
+     		name="diabetes" value="Yes">
+    		<label for="D1">Yes</label>
+
+    		<input type="radio" id="D2"
+     		name="diabetes" value="No">
+    		<label for="D2">No</label>
+
+    		<input type="radio" id="D3"
+     		name="diabetes" value="IDK">
+    		<label for="D3">IDK</label>
+  		</div>
+
+  		<p>How much cigarets do you smoke per day?</p>
+  		<div>
+    		<input type="radio" id="S0"
+     		name="cigarets" value="0">
+    		<label for="S1">0</label>
+
+    		<input type="radio" id="S1"
+     		name="cigarets" value="1">
+    		<label for="S1"><1</label>
+
+    		<input type="radio" id="S2"
+     		name="cigarets" value="1-2">
+    		<label for="S2">1-2</label>
+
+    		<input type="radio" id="S3"
+     		name="cigarets" value="3-4">
+    		<label for="S2">3-4</label>
+
+    		<input type="radio" id="S4"
+     		name="cigarets" value="5<">
+    		<label for="S2">5<</label><br><br>
+  		</div>
+
+  		<label for="Pressure">What's your pressure?</label>
+        <input type="number" id="Pressure1" name="Pressure1"> / 
+  		<input type="number" id="Pressure" name="Pressure"> mmHg<br><br>
+
+  		<label for="Cholesterol">Cholesterol in blood:</label>
+  		<input type="number" step="any" id="Cholesterol" name="Cholesterol"> mmol/litr<br><br> 
+
+  		<input type="submit" value="Submit" onclick="getInputValue();">
+  		
+	</form>
+	<script>
+        	function getInputValue(){
+            	var a = document.getElementById("Age").value;
+            	var he = document.getElementById("Height").value;
+            	var we = document.getElementById("Weight").value;
+            	var h = document.getElementById("Cholesterol").value;
+            	var p1 = document.getElementById("Pressure1").value;
+            	var p = document.getElementById("Pressure").value;
+
+            	var a = parseInt(a);
+            	var he = parseInt(he);
+            	var we = parseInt(we);
+            	var h = parseFloat(h);
+            	var p1 = parseInt(p1);
+            	var p = parseInt(p);
+
+            	if(document.getElementById('G1').checked) {
+    				var ch1 = 1;
+  				}
+  				else if(document.getElementById('G2').checked) {
+    				var ch1 = 2;
+  				}
+
+  				if(document.getElementById('D1').checked) {
+    				var ch2 = 1;
+  				}
+  				else if(document.getElementById('D2').checked) {
+    				var ch2 = 2;
+  				}
+  				else if(document.getElementById('D3').checked) {
+    				var ch2 = 3;
+  				}
+
+  				if(document.getElementById('S0').checked) {
+    				var ch3 = 0;
+  				}
+  				else if(document.getElementById('S1').checked) {
+    				var ch3 = 1;
+  				}
+  				else if(document.getElementById('S2').checked) {
+    				var ch3 = 2;
+  				}
+  				else if(document.getElementById('S3').checked) {
+    				var ch3 = 3;
+  				}
+  				else if(document.getElementById('S4').checked) {
+    				var ch3 = 4;
+  				}
+  				
+  				var G = parseInt(G);
+  				var I = parseInt(I);
+  				var H = parseInt(H);
+  				var D = parseInt(D);
+  				var S = parseInt(S);
+  				var P = parseInt(P);
+
+  				//var G, I, H, D, S, P = parseInt(G), parseInt(I), parseInt(H), parseInt(D), parseInt(S), parseInt(P);
+
+  				if(ch1 == 1){
+        			if(a>=65){
+            			G = 14;
+        			}
+        			else{
+            			G = 5;
+        			}
+        		}
+    			else if(ch1 == 2){
+        			if(a>=50){
+            			G = 12;
+        			}
+        			else{
+            			G = 3;
+        			}
+        		}
+
+        		var hr = Math.pow(2, he/100);
+    			var wr = we;
+    			var im = wr/hr;
+				if(a>=65){
+        			if(im<=40){
+            			I = 0;
+        			}
+        			else if(im>=40){
+            			I = 5;
+        			}
+        		}
+    			else if(a<65){
+        			if(im<=25){
+            			I = 0;
+        			}
+        			else if(im>25 && im<30){
+            			I = 3;
+        			}
+        			else if(im>=30 && im<40){
+            			I = 5;
+        			}
+        			else if(im>=40){
+            			I = 7;
+        			}
+        		}
+        		
+        		if(ch1 == 1){
+        			if(h>=2.8){
+            			H = 6;
+        			}
+        			else if(h<=2.8){  //в пределах 1,8–2,8 ммоль/л
+            			H = 0; }}
+    			else if(ch1 == 2){
+        			if(h>=4.5){  //Верхняя граница для женщин — до 4,5 ммоль/л.
+            			H = 6;}
+        			else if(h>=2.8 && h<=4.5){
+            			H = 3;
+        			}
+        			else{
+            			H = 0;
+        			}}
+
+    			if(ch2 == 1){
+        			D = 2;
+    			}
+    			else{
+       	 			D = 1;
+    			}
+
+    			if(ch3 == 0){
+    				S = 0;
+    			}
+    			else if(ch3 == 1){
+    				S = 4
+    			}
+    			else if(ch3 == 2){
+    				S = 5;
+    			}
+    			else if(ch3 == 3){
+    				S = 8;
+    			}
+    			else if(ch3 == 4){
+    				S = 10;
+    			}
+    			
+    			if(a<=19){
+        			if(p1>120 && p>80) P = 3;
+        			else if(p1<120 && p<80) P = 0;
+        			else if(p1>=120 && p<=80) P = 2;
+        			else if(p1<120 && p>80) P = 1;
+        		}
+    			if(a>=20 && a<=39){
+        			if(p1>135 && p>85) P = 5;
+        			else if(p1<135 && p<85) P = 0;
+        			else if(p1>=135 && p<=85) P = 3;
+        			else if(p1<135 && p>85) P = 1;
+        		}
+    			if(a>=40 && a<=64){
+        			if(p1>140 && p>85) P = 7;
+        			else if(p1<140 && p<85) P = 0;
+        			else if(p1>=140 && p<=85) P = 4;
+        			else if(p1<140 && p>85) P = 2;
+        		}
+    			if(a>=65){
+        			if(p1>140 && p>85) P = 9;
+        			else if(p1<140 && p<85) P = 0;
+        			else if(p1>=140 && p<=85) P = 5;
+        			else if(p1<140 && p>85) P = 3;
+        		}
+
+    			if(G>=0 && D>0 && S>=0 && P>=0 && H>=0 && I>=0){
+        			alert(((G+P)*D+H+S+I) + "%");}
+
+
+
+        	}
+    	</script>
+	</body>
+</html>
